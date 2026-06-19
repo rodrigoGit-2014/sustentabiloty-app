@@ -17,8 +17,15 @@ export function Header() {
     ? [sel.obra, 'Detalle de desempeño y explicabilidad del índice']
     : (titles[view] || titles.dashboard);
 
+  const toggleSidebar = useStore(state => state.toggleSidebar);
+
   return (
     <header className="header">
+      <button className="menu-toggle" onClick={toggleSidebar} aria-label="Abrir menú">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
       <div className="header-left">
         <h1 className="header-title">{title}</h1>
         <div className="header-subtitle">{subtitle}</div>

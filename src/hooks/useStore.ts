@@ -17,6 +17,7 @@ interface AppState {
   chatInput: string;
   report: string | null;
   reportDone: Record<string, boolean>;
+  sidebarOpen: boolean;
 
   // Actions
   setView: (view: ViewType) => void;
@@ -33,6 +34,8 @@ interface AppState {
   setReport: (report: string | null) => void;
   setReportDone: (id: string) => void;
   openObra: (obra: string) => void;
+  toggleSidebar: () => void;
+  closeSidebar: () => void;
 }
 
 export const useStore = create<AppState>((set) => ({
@@ -51,8 +54,9 @@ export const useStore = create<AppState>((set) => ({
   chatInput: '',
   report: null,
   reportDone: {},
+  sidebarOpen: false,
 
-  setView: (view) => set({ view }),
+  setView: (view) => set({ view, sidebarOpen: false }),
   setUploadStep: (uploadStep) => set({ uploadStep }),
   setCalcProgress: (calcProgress) => set({ calcProgress }),
   setSelectedObra: (selectedObra) => set({ selectedObra }),
@@ -68,5 +72,7 @@ export const useStore = create<AppState>((set) => ({
   setChatInput: (chatInput) => set({ chatInput }),
   setReport: (report) => set({ report }),
   setReportDone: (id) => set((state) => ({ reportDone: { ...state.reportDone, [id]: true } })),
-  openObra: (obra) => set({ selectedObra: obra, view: 'detalle' })
+  openObra: (obra) => set({ selectedObra: obra, view: 'detalle', sidebarOpen: false }),
+  toggleSidebar: () => set((state) => ({ sidebarOpen: !state.sidebarOpen })),
+  closeSidebar: () => set({ sidebarOpen: false })
 }));
